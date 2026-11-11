@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CEN · Engenharia Naval USP</title>
+  <meta name="description" content="Centro acadêmico da Engenharia Naval da Poli-USP: eventos, provas, produtos e o Drive da Naval.">
+  <meta name="theme-color" content="#0b0c0e">
+  <link rel="icon" href="assets/img/logo-cen.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Nunito:wght@400;700;800&display=swap">
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/componentes.css">
+  <script type="module" src="assets/js/site.js"></script>
+</head>
+<body>
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+  <div data-componente="cabecalho"></div>
+
+  <section class="abertura">
+    <div class="container abertura__grade">
+      <div>
+        <span class="abertura__selo">Poli-USP · Engenharia Naval e Oceânica</span>
+        <h1>Todos a bordo.</h1>
+        <p>O centro acadêmico da Naval: festas, provas, produtos e todo o material do curso num lugar só.</p>
+        <a class="botao botao--claro" href="eventos/">Ver próximos eventos</a>
+      </div>
+      <img class="abertura__logo" src="assets/img/logo-cen.png" alt="Logo do CEN: caveira pirata com tapa-olho e os dizeres Naval USP CEN" width="280" height="280">
+    </div>
+  </section>
+
+  <main id="conteudo" class="container secao">
+    <div class="cartoes">
+      <a class="cartao" href="eventos/">
+        <span class="cartao__icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v16M5 12l7-9 7 9z"/><path d="M3 19c3 2 6 2 9 0s6-2 9 0"/></svg></span>
+        <h3>Eventos</h3>
+        <p>Festas, palestras, visitas técnicas e esportes.</p>
+        <span class="cartao__seta">Calendário →</span>
+      </a>
+      <a class="cartao" href="provas/">
+        <span class="cartao__icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4M8 14h3"/></svg></span>
+        <h3>Provas</h3>
+        <p>P1, P2, PSub e entregas, filtradas por semestre.</p>
+        <span class="cartao__seta">Calendário →</span>
+      </a>
+      <a class="cartao" href="produtos/">
+        <span class="cartao__icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M8 3l-5 3 2 5 2-1v11h10V10l2 1 2-5-5-3c-1 2-2 3-4 3S9 5 8 3z"/></svg></span>
+        <h3>Produtos</h3>
+        <p>Camisetas, moletons e o resto do enxoval pirata.</p>
+        <span class="cartao__seta">Loja →</span>
+      </a>
+      <a class="cartao" href="drive/">
+        <span class="cartao__icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg></span>
+        <h3>Drive da Naval</h3>
+        <p>Provas antigas, listas, resumos e apostilas.</p>
+        <span class="cartao__seta">Abrir →</span>
+      </a>
+      <a class="cartao" data-componente="link-forms" data-chave="cco">
+        <span class="cartao__icone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg></span>
+        <h3>Forms da CCO</h3>
+        <p>Formulário da CCO da Naval.</p>
+        <span class="cartao__seta">Responder ↗</span>
+      </a>
+    </div>
+
+    <section class="faixa-proximos" aria-labelledby="titulo-proximos">
+      <h2 id="titulo-proximos">Próximos na agenda</h2>
+      <div data-componente="agenda" data-fonte="eventos" data-limite="3"></div>
+    </section>
+  </main>
+
+  <div data-componente="rodape"></div>
+</body>
+</html>

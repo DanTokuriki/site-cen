@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Provas · CEN Naval USP</title>
+  <meta name="description" content="Calendário de provas do CEN, centro acadêmico da Engenharia Naval da Poli-USP.">
+  <meta name="theme-color" content="#0b0c0e">
+  <link rel="icon" href="../assets/img/logo-cen.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Nunito:wght@400;700;800&display=swap">
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/componentes.css">
+  <script type="module" src="../assets/js/site.js"></script>
+</head>
+<body>
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+  <div data-componente="cabecalho"></div>
+
+  <section class="abertura abertura--simples">
+    <div class="container">
+      <span class="abertura__selo">CEN · Naval USP</span>
+      <h1>Calendário de provas</h1>
+      <p>Datas de P1, P2, PSub e entregas. Filtre pelo seu semestre e confira sempre com o professor.</p>
+    </div>
+  </section>
+
+  <main id="conteudo" class="container secao">
+    <div data-componente="agenda" data-fonte="provas"></div>
+  </main>
+
+  <div data-componente="rodape"></div>
+</body>
+</html>

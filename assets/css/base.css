@@ -1,0 +1,35 @@
+/* Reset, tipografia e utilitários. */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--osso);
+  color: var(--breu);
+  font-family: var(--fonte);
+  font-size: var(--t-texto);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+main { flex: 1; }
+img { max-width: 100%; display: block; }
+a { color: var(--sinal); text-underline-offset: 3px; }
+a:hover { color: var(--sinal-forte); }
+h1, h2, h3 { font-family: var(--fonte-titulo); font-weight: 400; line-height: 1.1; margin: 0 0 .5em; text-transform: uppercase; letter-spacing: .01em; }
+h1 { font-size: var(--t-gigante); }
+h2 { font-size: var(--t-titulo); }
+h3 { font-size: var(--t-media); }
+p { margin: 0 0 1em; }
+:focus-visible { outline: 3px solid var(--latao); outline-offset: 2px; }
+
+.container { width: 100%; max-width: var(--largura); margin: 0 auto; padding: 0 var(--gutter); }
+.secao { padding-block: var(--bloco); } /* só vertical: não apaga o recuo lateral do .container */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.pular { position: absolute; left: -999px; top: 8px; background: var(--latao); color: var(--breu); padding: 8px 14px; z-index: 100; font-weight: 800; }
+.pular:focus { left: 8px; }
+.muted { color: var(--breu-suave); }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+}

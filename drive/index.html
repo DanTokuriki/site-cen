@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Drive · CEN Naval USP</title>
+  <meta name="description" content="Drive da Naval do CEN, centro acadêmico da Engenharia Naval da Poli-USP.">
+  <meta name="theme-color" content="#0b0c0e">
+  <link rel="icon" href="../assets/img/logo-cen.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Nunito:wght@400;700;800&display=swap">
+  <link rel="stylesheet" href="../assets/css/tokens.css">
+  <link rel="stylesheet" href="../assets/css/base.css">
+  <link rel="stylesheet" href="../assets/css/componentes.css">
+  <script type="module" src="../assets/js/site.js"></script>
+</head>
+<body>
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+  <div data-componente="cabecalho"></div>
+
+  <section class="abertura abertura--simples">
+    <div class="container">
+      <span class="abertura__selo">CEN · Naval USP</span>
+      <h1>Drive da Naval</h1>
+      <p>Provas antigas, listas, resumos e apostilas, organizados pela galera da Naval.</p>
+    </div>
+  </section>
+
+  <main id="conteudo" class="container secao">
+    <div class="drive">
+      <div class="drive__caixa">
+        <h2>O que tem lá</h2>
+        <ul class="drive__pastas">
+          <li>Provas antigas, por disciplina</li>
+          <li>Listas de exercícios resolvidas</li>
+          <li>Resumos e apostilas</li>
+          <li>Projetos de anos anteriores</li>
+        </ul>
+      </div>
+      <div>
+        <h2>Bora estudar</h2>
+        <p>Abre numa aba nova. Se pedir permissão, entre com o seu e-mail USP.</p>
+        <div data-componente="drive"></div>
+        <p class="muted" style="margin-top:20px">Tem material para contribuir? Mande para a gestão do CEN que a gente sobe.</p>
+      </div>
+    </div>
+  </main>
+
+  <div data-componente="rodape"></div>
+</body>
+</html>
