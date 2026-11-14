@@ -11,6 +11,26 @@ export function lerData(texto) {
   return new Date(ano, mes - 1, dia);
 }
 
+// Aceita a data como a gestão costuma digitar na planilha e devolve sempre "AAAA-MM-DD".
+//   "2026-11-28" -> "2026-11-28"
+//   "28/11/2026" ou "28/11/26" -> "2026-11-28"
+// Qualquer outra coisa (vazio, "28 de novembro", data impossível) -> null.
+export function paraISO(texto = "") {
+  let ano, mes, dia;
+  let m;
+  if ((m = texto.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/))) [, ano, mes, dia] = m;
+  else if ((m = texto.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2}|\d{4})$/))) [, dia, mes, ano] = m;
+  else return null;
+
+  ano = Number(ano.length === 2 ? "20" + ano : ano);
+  mes = Number(mes);
+  dia = Number(dia);
+  // Confere se a data existe: new Date(2026, 1, 31) "vira" 3 de março, então comparamos de volta.
+  const d = new Date(ano, mes - 1, dia);
+  if (d.getFullYear() !== ano || d.getMonth() !== mes - 1 || d.getDate() !== dia) return null;
+  return `${ano}-${String(mes).padStart(2, "0")}-${String(dia).padStart(2, "0")}`;
+}
+
 export function hojeMeiaNoite() {
   const agora = new Date();
   return new Date(agora.getFullYear(), agora.getMonth(), agora.getDate());

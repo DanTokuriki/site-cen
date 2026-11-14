@@ -11,6 +11,14 @@ export const site = {
   // Deixe "" enquanto não tiver o link: a página do Drive mostra um aviso no lugar do botão.
   drive: "https://drive.google.com/drive/folders/1Dr0uAWSzGJLsaeWPdo1eqtAxhg1XXCkZ",
 
+  // Planilhas do Google que alimentam o site. A gestão edita a planilha e o site atualiza sozinho.
+  //   id:  o trecho do link da planilha entre /d/ e /edit
+  //   aba: nome da aba ("" = primeira aba)
+  // A planilha precisa estar em Compartilhar > "Qualquer pessoa com o link: Leitor".
+  planilhas: {
+    eventos: { id: "1XpZrb60GKV9vTQNPPsmI_rd_51Xgh9oZNm1oUa9kvNY", aba: "" },
+  },
+
   // Formulário da CCO (aparece num cartão da página inicial e no rodapé).
   forms: {
     cco: "https://forms.gle/VsF2szpZvXbdxQ4r9",

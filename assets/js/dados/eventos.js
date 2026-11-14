@@ -1,63 +1,34 @@
-// CALENDÁRIO DE EVENTOS
-// Para adicionar um evento, copie um bloco { ... } e mude os campos. A ordem não importa:
-// o site ordena por data sozinho e esconde o que já passou (com botão para mostrar).
+// CALENDÁRIO DE EVENTOS: agora vem da planilha do Google (link em config.js > planilhas.eventos).
+// Para adicionar um evento, basta preencher uma linha na planilha. Não precisa mexer aqui.
 //
-//   data:      "AAAA-MM-DD" (obrigatório)
-//   hora:      texto livre, ex.: "18h", "14h–17h" (opcional)
-//   titulo:    nome do evento (obrigatório)
-//   tipo:      vira filtro na página, ex.: "Festa", "Palestra", "Esporte", "Visita técnica"
-//   local:     onde vai ser (opcional)
-//   descricao: uma ou duas frases (opcional)
-//   link:      inscrição, post do Instagram etc. (opcional)
+// Colunas reconhecidas (maiúsculas e acentos não importam; a ordem também não):
+//   Data       28/11/2026 ou 2026-11-28 (obrigatória)
+//   Título     nome do evento (obrigatório)
+//   Hora       texto livre, ex.: "18h", "14h–17h"
+//   Tipo       vira filtro na página, ex.: "Festa", "Palestra"
+//   Local
+//   Descrição  (coluna opcional; pode ser criada na planilha)
+//   Link       (coluna opcional)
 //
-// ATENÇÃO: os eventos abaixo são EXEMPLOS. Troque pelos de verdade.
+// Linhas sem data válida ou sem título são ignoradas, com aviso no console (F12).
 
-export const eventos = [
-  {
-    data: "2026-11-11",
-    hora: "18h",
-    titulo: "Reunião aberta do CEN",
-    tipo: "Reunião",
-    local: "Centrinho da Naval",
-    descricao: "Pauta: loja de fim de ano e calendário de 2027. Aberta a todo mundo da Naval.",
-  },
-  {
-    data: "2026-11-14",
-    hora: "14h–18h",
-    titulo: "Visita técnica a estaleiro",
-    tipo: "Visita técnica",
-    local: "Saída do prédio da Naval",
-    descricao: "Vagas limitadas, inscrição pelo formulário.",
-    link: "",
-  },
-  {
-    data: "2026-11-21",
-    hora: "19h",
-    titulo: "Palestra: carreira em offshore",
-    tipo: "Palestra",
-    local: "Anfiteatro da Naval",
-  },
-  {
-    data: "2026-11-28",
-    hora: "a partir das 16h",
-    titulo: "Churrasco de fim de semestre",
-    tipo: "Festa",
-    local: "Raia Olímpica",
-    descricao: "Ingresso com desconto para quem tiver a camiseta do CEN.",
-  },
-  {
-    data: "2026-12-05",
-    hora: "9h",
-    titulo: "Regata de barcos de papelão",
-    tipo: "Esporte",
-    local: "Raia Olímpica",
-    descricao: "Monte seu barco com a sua turma. O que afundar primeiro paga o açaí.",
-  },
-  {
-    data: "2026-10-30",
-    hora: "22h",
-    titulo: "Festa Pirata",
-    tipo: "Festa",
-    local: "Espaço Poli",
-  },
-];
+import { site } from "../config.js";
+import { lerPlanilha } from "../planilha.js";
+import { paraISO } from "../datas.js";
+
+export async function carregarEventos() {
+  const linhas = await lerPlanilha(site.planilhas.eventos);
+  const eventos = [];
+
+  linhas.forEach((linha, i) => {
+    const data = paraISO(linha.data);
+    if (!data || !linha.titulo) {
+      // i + 2: a linha 1 da planilha é o cabeçalho e as listas começam em 0.
+      console.warn(`Planilha de eventos, linha ${i + 2} ignorada (data ou título inválido):`, linha);
+      return;
+    }
+    eventos.push({ ...linha, data, descricao: linha.descricao || "" });
+  });
+
+  return eventos;
+}

@@ -4,21 +4,24 @@
 //   <div data-componente="agenda" data-fonte="provas"></div>    (Calendário de provas)
 //   data-limite="3" mostra só os próximos N itens, sem filtros (usado na página inicial).
 
-import { eventos } from "../dados/eventos.js";
+import { carregarEventos } from "../dados/eventos.js";
 import { provas } from "../dados/provas.js";
 import { lerData, diasAte, nomeMes, diaSemana, situacao } from "../datas.js";
 
-// Cada fonte diz como filtrar e como escrever o título e a linha de detalhes de um item.
+// Cada fonte diz de onde vêm os itens (carregar), como filtrar e como escrever cada item.
+// `carregar` é sempre assíncrona: eventos vêm da planilha (internet); provas ainda vêm do
+// arquivo, mas embrulhadas numa função async para a agenda tratar as duas fontes igual.
 const FONTES = {
   eventos: {
-    itens: eventos,
-    filtro: (e) => e.tipo,
-    titulo: (e) => e.titulo,
-    meta: (e) => [e.hora, e.local].filter(Boolean).join(" · "),
+    carregar: carregarEventos,
+    // Texto da planilha é digitado por pessoas: sempre escapar antes de virar HTML.
+    filtro: (e) => e.tipo || "Outros",
+    titulo: (e) => escapar(e.titulo),
+    meta: (e) => escapar([e.hora, e.local].filter(Boolean).join(" · ")),
     vazio: "Nenhum evento marcado por enquanto. Fique de olho no Instagram!",
   },
   provas: {
-    itens: provas,
+    carregar: async () => provas,
     filtro: (p) => `${p.semestre}º semestre`,
     titulo: (p) => `<span class="agenda__sigla">${p.sigla}</span> ${p.avaliacao} · ${p.disciplina}`,
     meta: (p) => [p.hora, p.sala].filter(Boolean).join(" · "),
@@ -28,9 +31,22 @@ const FONTES = {
 
 const escapar = (t = "") => String(t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
 
-export default function agenda(el, { fonte = "eventos", limite }) {
+export default async function agenda(el, { fonte = "eventos", limite }) {
   const cfg = FONTES[fonte];
-  const todos = cfg.itens
+
+  // Os dados podem demorar ou falhar: mostramos "carregando" e, se der errado, um aviso.
+  el.innerHTML = `<p class="agenda__meta" role="status">Carregando agenda…</p>`;
+  let itens;
+  try {
+    itens = await cfg.carregar();
+  } catch (erro) {
+    console.error(`Não foi possível carregar ${fonte}:`, erro);
+    el.innerHTML = `<div class="agenda__vazio" role="alert">Não foi possível carregar a agenda agora.
+      Tente recarregar a página daqui a pouco.</div>`;
+    return;
+  }
+
+  const todos = itens
     .map((item) => ({ ...item, _data: lerData(item.data) }))
     .sort((a, b) => a._data - b._data || (a.hora || "").localeCompare(b.hora || ""));
 
@@ -88,7 +104,8 @@ export default function agenda(el, { fonte = "eventos", limite }) {
 function linha(item, cfg) {
   const dias = diasAte(item._data);
   const etiqueta = situacao(dias);
-  const link = item.link ? ` <a href="${escapar(item.link)}" rel="noopener">mais informações</a>` : "";
+  // Só aceita links http(s): um "javascript:..." digitado na planilha não vira link.
+  const link = /^https?:\/\//i.test(item.link || "") ? ` <a href="${escapar(item.link)}" rel="noopener">mais informações</a>` : "";
   return `
     <li class="agenda__item${dias < 0 ? " agenda__item--passado" : ""}">
       <div class="agenda__data" aria-hidden="true">
